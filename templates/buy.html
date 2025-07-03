@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %}
+    <h1 class="display-5 fw-bold mb-4">Buy Stocks</h1>
+    
+    <form action="{{ url_for('buy') }}" method="post" class="buy-form mx-auto p-4 shadow rounded">
+        <label for="symbol" class="form-label fw-bold" style="font-size: 1.2rem;">Symbol:</label>
+        <input type="text" name="symbol" id="symbol" class="form-control form-control-lg mb-4" placeholder="Enter Stock Symbol">
+
+        <label for="shares" class="form-label fw-bold" style="font-size: 1.2rem;">Shares:</label>
+        <input type="text" name="shares" id="shares" class="form-control form-control-lg mb-4" placeholder="Enter Number of Shares">
+        
+        <button type="submit" class="btn btn-primary btn-lg submit-btn mt-2">Submit</button>
+    </form>
+{% endblock %}
+
+<!-- Custom CSS -->
+<style>
+    /* General form container styling */
+    .buy-form {
+        max-width: 500px;
+        background: #f9f9f9;
+    }
+
+    /* Font and spacing */
+    body {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+    }
+
+    h1 {
+        font-family: 'Georgia', serif;
+        color: #444;
+    }
+
+    /* Input box styling */
+    .form-control {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    /* Submit button styling and hover effect */
+    .submit-btn {
+        background-color: #007bff;
+        color: #fff;
+        transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out, transform 0.2s ease-in-out;
+        width: 100%;
+    }
+
+    .submit-btn:hover {
+        background-color: #28a745; /* Green color on hover */
+        box-shadow: 0 0 15px rgba(40, 167, 69, 0.8); /* Intense green glow */
+        transform: scale(1.1); /* Increase button size on hover */
+    }
+
+    /* Background design */
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, rgba(0, 123, 255, 0.1), rgba(40, 167, 69, 0.1));
+        z-index: -1;
+    }
+
+    /* Decorative elements for free space */
+    .buy-form::before {
+        content: '';
+        position: absolute;
+        top: -30px;
+        left: -30px;
+        width: 60px;
+        height: 60px;
+        background: rgba(0, 123, 255, 0.2);
+        border-radius: 50%;
+        z-index: -1;
+    }
+    
+    .buy-form::after {
+        content: '';
+        position: absolute;
+        bottom: -30px;
+        right: -30px;
+        width: 60px;
+        height: 60px;
+        background: rgba(40, 167, 69, 0.2);
+        border-radius: 50%;
+        z-index: -1;
+    }
+</style>

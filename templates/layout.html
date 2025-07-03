@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, width=device-width">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- Custom Stylesheet -->
+    <link href="/static/styles.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link href="/static/favicon.ico" rel="icon">
+
+    <title>$tockHigh: {% block title %}{% endblock %}</title>
+
+    <style>
+        /* Ensure footer stays at the bottom */
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex: 1;
+        }
+
+        /* Gradient background for navbar */
+        .navbar-custom {
+            background: linear-gradient(to right, #4b79a1, #283e51); /* Light and dark blue */
+        }
+
+        /* Footer style - smaller size, darker background */
+        footer {
+            width: 100%;
+            background-color: #1c1c1c; /* Darker shade than navbar */
+            color: #ccc; /* Lighter text for contrast */
+            padding: 10px 0; /* Smaller height */
+        }
+        footer p, footer form {
+            margin: 0;
+            padding-left: 20px; /* Align content to the left */
+        }
+        .footer-container {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Menu item hover effects */
+        .navbar-nav .nav-link {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            font-size: 1rem;
+        }
+        .navbar-nav .nav-link:hover {
+            transform: scale(1.2); /* Increase size on hover */
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Glow effect */
+        }
+
+        /* Style for larger tables */
+        main table {
+            width: 100%;
+            font-size: 1.2rem;
+            margin: auto;
+            border: 1px solid #ddd;
+        }
+        main table th, main table td {
+            padding: 14px 18px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        main table th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-custom border-bottom shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white fw-bold" href="/">
+                <span>$</span>tock<span class="text-warning">High</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar">
+                {% if session["user_id"] %}
+                    <ul class="navbar-nav me-auto mt-2">
+                        <li class="nav-item"><a class="nav-link text-white" href="/quote">Quote</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="/buy">Buy</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="/sell">Sell</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="/history">History</a></li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto mt-2">
+                        <li class="nav-item"><a class="nav-link text-white" href="/logout">Log Out</a></li>
+                    </ul>
+                {% else %}
+                    <ul class="navbar-nav ms-auto mt-2">
+                        <li class="nav-item"><a class="nav-link text-white" href="/register">Register</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="/login">Log In</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Message -->
+    {% if get_flashed_messages() %}
+        <header>
+            <div class="alert alert-info text-center my-0 py-2" role="alert">
+                {{ get_flashed_messages() | join(" ") }}
+            </div>
+        </header>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="container my-5 py-4 text-center shadow rounded bg-light">
+        {% block main %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <p class="small mb-1">Data provided by <a href="https://finance.yahoo.com/" class="text-warning text-decoration-none">Yahoo Finance</a></p>
+            <form action="https://validator.w3.org/check" enctype="multipart/form-data" method="post" target="_blank" style="margin-left: 10px;">
+                <input name="doctype" type="hidden" value="HTML5">
+                <input name="fragment" type="hidden">
+                <input alt="Validate" src="/static/I_heart_validator.png" type="image"> <!-- W3C Validator -->
+            </form>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const html = '<!DOCTYPE ' + document.doctype.name + (document.doctype.publicId ? ' PUBLIC "' + document.doctype.publicId + '"' : '') + (!document.doctype.publicId && document.doctype.systemId ? ' SYSTEM' : '') + (document.doctype.systemId ? ' "' + document.doctype.systemId + '"' : '') + '>\n' + document.documentElement.outerHTML;
+                document.querySelector('form[action="https://validator.w3.org/check"] > input[name="fragment"]').value = html;
+            });
+        </script>
+    </footer>
+
+</body>
+
+</html>

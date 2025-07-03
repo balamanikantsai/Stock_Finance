@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+    <h2 class="display-6 fw-bold mb-4">Get a Stock Quote</h2>
+    
+    <!-- Tagline -->
+    <p class="mb-4 text-muted fst-italic">"Stay ahead in the stock market with real-time quotes!"</p>
+    
+    <form action="{{ url_for('quote') }}" method="post" class="mb-5">
+        <label for="symbol" class="form-label fw-bold" style="font-size: 1.2rem;">Symbol</label>
+        <input type="text" name="symbol" id="symbol" placeholder="Enter Stock Symbol" class="form-control form-control-lg mb-3" style="font-size: 1.2rem; font-weight: bold;">
+        <button type="submit" class="btn btn-primary btn-lg mt-2 glow-button" style="font-size: 1.2rem; font-weight: bold;">Get Quote</button>
+    </form>
+    
+    <!-- Display Quote Information -->
+    {% if quote %}
+        <h3 class="fw-bold">{{ quote['name'] }} ({{ quote['symbol'] }})</h3>
+        <p class="fw-bold" style="font-size: 1.5rem;">Price: {{ quote['price'] | usd }}</p>
+    {% endif %}
+{% endblock %}
+
+<!-- Add custom CSS for glow effect -->
+<style>
+    .glow-button {
+        transition: box-shadow 0.3s ease-in-out;
+    }
+    .glow-button:hover {
+        box-shadow: 0 0 15px rgba(0, 123, 255, 0.7); /* Blue glow on hover */
+    }
+</style>
